@@ -1,0 +1,31 @@
+Locking thread 0 with priority 10
+Locking thread 6 with priority 70
+Locking thread 2 with priority 30
+Locking thread 1 with priority 20
+Locking thread 9 with priority 100
+Locking thread 4 with priority 50
+Locking thread 7 with priority 80
+Locking thread 5 with priority 60
+Locking thread 8 with priority 90
+Locking thread 3 with priority 40
+     Unlocking thread 0 with priority 10
+     Unlocking thread 1 with priority 20
+     Unlocking thread 2 with priority 30
+     Unlocking thread 3 with priority 40
+     Unlocking thread 4 with priority 50
+          Unlocked thread 0 with priority 10
+          Unlocked thread 1 with priority 20
+     Unlocking thread 5 with priority 60
+     Unlocking thread 6 with priority 70
+     Unlocking thread 7 with priority 80
+     Unlocking thread 8 with priority 90
+     Unlocking thread 9 with priority 100
+          Unlocked thread 5 with priority 60
+          Unlocked thread 9 with priority 100
+          Unlocked thread 4 with priority 50
+          Unlocked thread 3 with priority 40
+          Unlocked thread 6 with priority 70
+          Unlocked thread 7 with priority 80
+          Unlocked thread 8 with priority 90
+          Unlocked thread 2 with priority 30
+Main exits.

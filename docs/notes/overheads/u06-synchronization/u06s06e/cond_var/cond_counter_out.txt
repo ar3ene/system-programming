@@ -1,0 +1,16 @@
+Starting watch on count
+Increment count [T=139696519681792] (0 -> 1)
+Increment count [T=139696528074496] (1 -> 2)
+Increment count [T=139696519681792] (2 -> 3)
+Increment count [T=139696528074496] (3 -> 4)
+Increment count [T=139696519681792] (4 -> 5)
+Increment count [T=139696528074496] (5 -> 6)
+Increment count [T=139696519681792] (6 -> 7)
+Increment count [T=139696528074496] (7 -> 8)
+Increment count [T=139696519681792] (8 -> 9)
+Increment count [T=139696528074496] (9 -> 10)
+Increment count [T=139696519681792] (10 -> 11)
+Increment count [T=139696528074496] (11 -> 12)
+Threshold reached (count=12).
+Watch_count: Condition signal received.
+Increment count [T=139696519681792] (12 -> 13)

@@ -1,0 +1,4 @@
+/home/quer/CLionProjects/ccontrol/cmake-build-debug/ccontrol
+27
+
+Process finished with exit code 0

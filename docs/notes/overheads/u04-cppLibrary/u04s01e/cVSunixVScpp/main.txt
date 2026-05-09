@@ -1,0 +1,62 @@
+quer@quer-VB:~/tmp1$ ./main 1000000 ; ls -la ; ./main 2000000 ; ls -la
+C-Buffered Section
+  C    Write Time: 78972
+  C    Read  Time: 62943
+C-Unbuffered Section
+  C    Write Time: 878387
+  C    Read  Time: 62970
+UNIX Section
+  UNIX Write Time: 748853
+  UNIX Read  Time: 212751
+UNIX Array Section
+  UNIX Write Time: 14454
+  UNIX Read  Time: 420
+C++ Section
+  C++  Write Time: 873290
+  C++   Read Time: 50802
+C++ Binary Section
+  C++  Write Time: 23669
+  C++   Read Time: 11653
+total 28356
+drwxrwxr-x  2 quer quer     4096 mar 29 17:48 .
+drwxr-xr-x 40 quer quer     4096 mar 29 17:38 ..
+-rw-rw-r--  1 quer quer  4000000 mar 29 17:49 cpp_bin.bin
+-rw-rw-r--  1 quer quer 10481994 mar 29 17:49 cpp.txt
+-rw-rw-r--  1 quer quer 10482535 mar 29 17:49 c.txt
+-rwxrwxr-x  1 quer quer    27736 mar 29 17:48 main
+-rw-rw-r--  1 quer quer      863 mar 28 23:42 main.c~
+-rw-rw-r--  1 quer quer     6698 mar 29 17:48 main.cpp
+-rw-rw-r--  1 quer quer     4561 mar 29 00:35 main.cpp~
+-rw-rw-r--  1 quer quer     1809 mar 29 00:37 main.log
+-rw-------  1 quer quer  4000000 mar 29 17:49 unix.bin
+C-Buffered Section
+  C    Write Time: 171900
+  C    Read  Time: 125105
+C-Unbuffered Section
+  C    Write Time: 1805651
+  C    Read  Time: 138862
+UNIX Section
+  UNIX Write Time: 1513373
+  UNIX Read  Time: 411442
+UNIX Array Section
+  UNIX Write Time: 27865
+  UNIX Read  Time: 1117
+C++ Section
+  C++  Write Time: 1762476
+  C++   Read Time: 102735
+C++ Binary Section
+  C++  Write Time: 45777
+  C++   Read Time: 22247
+total 56644
+drwxrwxr-x  2 quer quer     4096 mar 29 17:48 .
+drwxr-xr-x 40 quer quer     4096 mar 29 17:38 ..
+-rw-rw-r--  1 quer quer  8000000 mar 29 17:49 cpp_bin.bin
+-rw-rw-r--  1 quer quer 20965643 mar 29 17:49 cpp.txt
+-rw-rw-r--  1 quer quer 20965309 mar 29 17:49 c.txt
+-rwxrwxr-x  1 quer quer    27736 mar 29 17:48 main
+-rw-rw-r--  1 quer quer      863 mar 28 23:42 main.c~
+-rw-rw-r--  1 quer quer     6698 mar 29 17:48 main.cpp
+-rw-rw-r--  1 quer quer     4561 mar 29 00:35 main.cpp~
+-rw-rw-r--  1 quer quer     1809 mar 29 00:37 main.log
+-rw-------  1 quer quer  8000000 mar 29 17:49 unix.bin
+quer@quer-VB:~/tmp1$ 

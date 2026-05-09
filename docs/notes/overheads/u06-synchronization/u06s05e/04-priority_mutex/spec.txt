@@ -1,0 +1,52 @@
+C++ standard mutexes are unfair
+Some threads might succeed in locking the mutex more often than others
+A simple experiment on Linux shows that if threads repeatedly try to lock the same mutex, some threads lock the mutex 1.13x more often than others
+To avoid unfairness, threads must take turns
+Implement a fair mutex
+
+Hint: One fair mutex implementation is using a ticket lock (or turn variable)
+
+Version 1
+---------
+
+struct ticket_mutex {
+  unsigned now = 0;   // “now serving”
+  unsigned next = 0;  // “next ticket”
+
+  void lock() {
+    unsigned t = this->next;    // mark this thread’s place
+    ++this->next;               // next thread gets new place
+    while (this->now != t) {    // wait for my turn
+    }
+  }
+
+  void unlock() {
+     ++this->now;
+  }
+};
+
+Version 2
+---------
+
+struct ticket_mutex {
+  unsigned now;
+  unsigned next;
+  std::mutex m;
+
+  void lock() {
+    this->m.lock();
+    unsigned t = this->next++;
+    while (this->now != t) {
+      this->m.unlock();
+      sched_yield();
+      this->m.lock();
+    }
+    this->m.unlock();
+  }
+
+void unlock() {
+   this->m.lock();
+   ++this->now;
+   this->m.unlock();
+ }
+};

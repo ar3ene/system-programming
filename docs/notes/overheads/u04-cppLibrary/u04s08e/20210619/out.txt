@@ -1,0 +1,4 @@
+/home/quer/CLionProjects/ccontrol/cmake-build-debug/ccontrol
+{1}[C]{2}[CC]{3}[CC]{f1}[D]{4}[MC]{f1}[D]{5}[D][D]
+Process finished with exit code 0
+

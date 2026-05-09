@@ -1,0 +1,10 @@
+quer@quer-VB:~/tmp1$ ./a
+Waiting for input ... 123
+Received SIGUSR1; Received input: 123
+Waiting for input ... 4545451445
+Received SIGUSR1; Received input: 4545451445
+Waiting for input ... 123
+Received SIGUSR1; Received input: 123
+Waiting for input ... end
+Received SIGUSR1; Received input: end
+

@@ -1,0 +1,3 @@
+/home/quer/CLionProjects/fileAsciiVSBinary/cmake-build-debug/CMakeFiles/untitled5.dir
+/home/quer/CLionProjects/fileAsciiVSBinary/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/quer/CLionProjects/fileAsciiVSBinary/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,23 @@
+Implement a C or C++ program that
+- Takes as argument a number K
+- Creates K threads with code TA and 2*K threads with code TB, then exit
+  - All threads are identified by their creation index (from 0 to K-1 and from 0 to 2*K-1,     respectively)
+- Threads
+  - Sleep a random number of seconds
+  - Then, they coordinate their effort such that
+  - For each set of 3 threads running, the first thread is a thread TA and
+    the other two are threads TB
+  - All threads must print their id
+  - The last thread TB must also print a newline
+
+Execution example
+pgrm 8
+A0 B7 B6 
+A1 B8 B5 
+A2 B9 B10 
+A7 B11 B12 
+A4 B4 B13 
+A5 B14 B15 
+A3 B3 B0
+A6 B2 B1  
+ 

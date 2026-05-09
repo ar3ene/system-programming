@@ -1,0 +1,61 @@
+```gitignore
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# VS Code local state
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Build outputs
+build/
+bin/
+out/
+dist/
+
+# Compiled objects and binaries
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+
+# Make dependency files
+*.d
+
+# Debug / sanitizer artifacts
+*.dSYM/
+*.gcda
+*.gcno
+*.profraw
+*.profdata
+asan.log*
+tsan.log*
+ubsan.log*
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.cache/
+
+# Test/generated I/O files
+input*.txt
+output*.txt
+input*.bin
+output*.bin
+result*.txt
+result*.bin
+
+# Keep empty folders if you use .gitkeep
+!.gitkeep
+```

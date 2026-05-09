@@ -1,0 +1,10 @@
+quer@quer-VB:~/tmp1$ ./pR
+FIFO exists.
+Reader (return value=-1): File exists
+
+prw-rw-r--  1 quer quer    0 apr  5 16:14 myfifo
+
+quer@quer-VB:~/tmp1$ ./pW
+Writer (return value=0): Success
+Send to user: ^
+

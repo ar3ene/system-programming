@@ -1,0 +1,13 @@
+quer@quer-VB:~/tmp1$ g++ -Wall -o p2 shared_futures_3.cpp 
+quer@quer-VB:~/tmp1$ ./p2
+Main thread is doing some other work...
+The result from the async task (unique future) is: 30
+terminate called after throwing an instance of 'std::future_error'
+  what():  std::future_error: No associated state
+Aborted (core dumped)
+quer@quer-VB:~/tmp1$ g++ -Wall -o p2 shared_futures_3.cpp 
+quer@quer-VB:~/tmp1$ ./p2
+Main thread is doing more work...
+The result from the async task (shared future) is: 70
+The result from the async task (shared future) is: 70
+

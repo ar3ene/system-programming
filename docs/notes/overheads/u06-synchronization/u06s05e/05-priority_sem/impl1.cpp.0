@@ -1,0 +1,106 @@
+#include <iostream>
+#include <cstdlib>
+#include <vector>
+#include <set>
+#include <thread>
+#include <mutex>
+#include <semaphore>
+
+using std::cout;
+using std::endl;
+using std::vector;
+using std::set;
+using std::thread;
+using std::mutex;
+
+const int TIME = 3;
+
+// C++20 semaphore are neither coiable nor movable
+// Need to create a class; then get problem in inserting objects in sets
+
+struct my_sem_s {
+  int priority;
+  std::binary_semaphore sem;
+
+  my_sem_s(auto count, int val): sem(count) {
+    priority = val;
+  }
+
+  bool operator< (const my_sem_s &val) {
+    return (priority < val.priority);
+  }
+};
+
+class my_sem_c {
+public:
+  mutex mm;            // Main Mutex
+  int cnt;             // Counter
+  set<my_sem_s> pq;    // Priority queue
+
+  my_sem_c () {
+     cnt = 0;
+  }
+
+  my_sem_c (int n) {
+     cnt = n;
+  }
+
+  void lock (const int p) {
+    mm.lock();
+    if (--cnt < 0) {
+      my_sem_s tmp(0, p);
+      // StQ: Hic sunt leones
+      //pq.insert(tmp);
+      cout << "Lock thread with priority " << p << endl;
+      mm.unlock();
+      tmp.sem.acquire();
+    } else {
+      mm.unlock();
+    }
+  }
+
+  void unlock () {
+    mm.lock();
+    if (++cnt <= 0) {
+      auto it=pq.begin();
+      cout << "  Unlock thread with priority " << it->priority << endl;
+      it = pq.erase(it);
+    }
+    mm.unlock();
+  }
+
+};
+
+my_sem_c my_sem_v;
+
+static void worker (int p) {
+  std::this_thread::sleep_for(std::chrono::seconds(rand()%TIME));
+  cout << "Locking thread with priority " << p << endl;
+  my_sem_v.lock (p);
+  cout << "Unlocking thread with priority " << p << endl;  
+  return;
+}
+
+int main (int argc, char *argv[]) {
+  vector<thread> pool;
+  int i;
+
+  if (argc != 2) {
+    cout << "Syntax: " << argv[0] << " num_threads\n";
+    return (1);
+  }
+  int n = atoi (argv[1]);
+  
+  for (i=1; i<=n; i++) {
+    pool.emplace_back([i] { worker (i*10); });
+  }
+
+  for (i=1; i<=n; i++) {
+    std::this_thread::sleep_for(std::chrono::seconds(rand()%TIME));
+    my_sem_v.unlock();
+  }
+
+  cout << "Main exits." << endl;
+  return (1);
+}
+

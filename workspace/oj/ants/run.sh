@@ -1,68 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Usage:
-#   ./tools/new.sh <template> <relative-output-path>
-# Examples:
-#   ./tools/new.sh single-cpp lab04/ex01
-#   ./tools/new.sh pthread-c lab05/ex02
-#
-# This script copies a template into workspace/<relative-output-path>
-# and injects a local ./run.sh into that exercise folder.
-# It does NOT require modifying/replacing the whole template directory.
-
-if [[ $# -ne 2 ]]; then
-  echo "Usage: $0 <template> <relative-output-path>"
-  echo "Templates: single-c single-cpp pthread-c multifile-cpp async-cpp"
-  echo "Example: $0 pthread-c lab04/ex03"
-  exit 1
-fi
-
-TEMPLATE="$1"
-OUT_REL="$2"
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-SRC="$ROOT_DIR/templates/$TEMPLATE"
-DST="$ROOT_DIR/workspace/$OUT_REL"
-
-if [[ ! -d "$SRC" ]]; then
-  echo "Unknown template: $TEMPLATE"
-  echo "Available templates:"
-  find "$ROOT_DIR/templates" -mindepth 1 -maxdepth 1 -type d \
-    ! -name '_vscode' -exec basename {} \; | sort | sed 's/^/  - /'
-  exit 1
-fi
-
-if [[ -e "$DST" ]]; then
-  echo "Destination already exists: $DST"
-  exit 1
-fi
-
-mkdir -p "$(dirname "$DST")"
-cp -R "$SRC" "$DST"
-
-# Ensure VS Code settings exist even if the chosen template is minimal.
-if [[ ! -d "$DST/.vscode" && -d "$ROOT_DIR/templates/_vscode" ]]; then
-  cp -R "$ROOT_DIR/templates/_vscode" "$DST/.vscode"
-fi
-
-# Inject/overwrite the one-command runner for this exercise.
-# The runner intentionally supports arbitrary input/config filenames and extensions:
-#   ./run.sh                         -> build, auto-load .env, auto-detect input/config if unique
-#   ./run.sh data.bin                -> build, run ./bin/app data.bin
-#   ./run.sh config.yaml data.csv    -> build, run ./bin/app config.yaml data.csv
-#   ./run.sh --stdin any.file        -> build, run ./bin/app < any.file
-#   ./run.sh --env .env.dev config.json
-#   ./run.sh --clean
-#
-# Optional zero-typing config files in the exercise folder:
-#   .env        shell-compatible env vars, auto-loaded if present
-#   .run-args   one line of default argv, e.g. "config.yaml data/input.bin output.bin"
-#   .run-stdin  path to default stdin file, e.g. "tests/case01.in"
-cat > "$DST/run.sh" <<'RUNNER'
-#!/usr/bin/env bash
-set -euo pipefail
-
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 APP="${APP:-./bin/app}"
@@ -72,7 +10,6 @@ CLEAN_ONLY=0
 STDIN_FILE=""
 ENV_FILES=()
 USER_ARGS=()
-RUN_VERBOSE="${RUN_VERBOSE:-0}"
 
 usage() {
   cat <<'USAGE'
@@ -83,9 +20,6 @@ Usage:
   ./run.sh --env <file> <args...>  Load an env/config file before running. Can be repeated.
   ./run.sh --no-build <args...>    Run without make.
   ./run.sh --clean                 make clean.
-
-Optional debug mode:
-  RUN_VERBOSE=1 ./run.sh            Print the exact command before running.
 
 Zero-typing local config files:
   .env        Auto-loaded if present. Shell-compatible dotenv syntax, e.g. KEY=value, export KEY=value.
@@ -98,7 +32,6 @@ Examples:
   ./run.sh config.yaml data.csv output.bin
   ./run.sh --stdin tests/case01.in
   ./run.sh --env .env.local config.json
-  RUN_VERBOSE=1 ./run.sh input.bin
 USAGE
 }
 
@@ -225,20 +158,7 @@ fi
 
 if [[ -n "$STDIN_FILE" ]]; then
   [[ -f "$STDIN_FILE" ]] || { echo "run.sh: stdin file not found: $STDIN_FILE" >&2; exit 1; }
-  if [[ "$RUN_VERBOSE" == "1" || "$RUN_VERBOSE" == "true" || "$RUN_VERBOSE" == "yes" ]]; then
-    echo "+ $APP ${ARGS[*]-} < $STDIN_FILE" >&2
-  fi
   exec "$APP" "${ARGS[@]}" < "$STDIN_FILE"
 else
-  if [[ "$RUN_VERBOSE" == "1" || "$RUN_VERBOSE" == "true" || "$RUN_VERBOSE" == "yes" ]]; then
-    echo "+ $APP ${ARGS[*]-}" >&2
-  fi
   exec "$APP" "${ARGS[@]}"
 fi
-RUNNER
-
-chmod +x "$DST/run.sh"
-
-printf "Created %s from template %s\n" "$DST" "$TEMPLATE"
-printf "Next:\n  cd %s\n  ./run.sh\n  code .\n" "$DST"
-printf "Notes:\n  - Put env vars in .env; it is auto-loaded.\n  - Put default argv in .run-args for zero-typing file/config args.\n  - Put a stdin filename in .run-stdin if your program reads stdin.\n"

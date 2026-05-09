@@ -59,3 +59,6 @@ result*.bin
 # Keep empty folders if you use .gitkeep
 !.gitkeep
 ```
+
+# VS Code local project settings generated inside workspace exercises
+workspace/**/.vscode/
